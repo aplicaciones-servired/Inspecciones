@@ -1,0 +1,28 @@
+version: '3'
+
+services:
+  web_inpecciones:
+    image: nginx:stable-alpine3.21-perl
+    restart: always
+    container_name: web_inpecciones
+    volumes:
+      - ./client/dist:/usr/share/nginx/html
+      - ./config/nginx.conf:/etc/nginx/nginx.conf
+    networks:
+      - red-gane-int
+
+  api-inpecciones:
+    build:
+      context: ./server
+      dockerfile: Dockerfile
+    container_name: api-inpecciones
+    restart: always
+    image: api-inpecciones-v1.0
+    networks:
+      - red-gane-int
+    environment:
+      - TZ=America/Bogota
+      
+networks:
+  red-gane-int:
+    external: true
