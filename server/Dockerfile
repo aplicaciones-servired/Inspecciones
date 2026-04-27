@@ -6,7 +6,7 @@ COPY . .
 
 RUN npm install -g pnpm@latest
 
-RUN pnpm install
+RUN pnpm install --config.confirmModulesPurge=false
 
 EXPOSE 3000
 
