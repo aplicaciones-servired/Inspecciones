@@ -10,6 +10,7 @@ import { postLoguin } from "../controllers/loguin.controller";
 import { getMotocicleta } from "../controllers/motocicleta.controller";
 import { getProtecion } from "../controllers/protecion.controller";
 import { getSeguimientoLogin } from "../controllers/seguimiento_login.controller";
+import { getVehicular } from "../controllers/vehicular.controller";
 
 const inspeccionesRouter = Router();
 
@@ -23,6 +24,7 @@ inspeccionesRouter.get("/locativa/:zonas", getLocativa);
 inspeccionesRouter.get("/motocicleta", getMotocicleta);
 inspeccionesRouter.get("/protecion/:zonas", getProtecion);
 inspeccionesRouter.get("/seguimiento_login", getSeguimientoLogin);
+inspeccionesRouter.get("/vehicular/:zonas", getVehicular);
 inspeccionesRouter.post("/login", postLoguin);
 
 export default inspeccionesRouter;

@@ -1,6 +1,7 @@
 import express from "express";
 import cors from "cors";
 import routes from "./routes/inspecciones.routes";
+import log from 'morgan';
 
 const app = express();
 const port = Number(process.env.PORT ?? 3000);
@@ -12,6 +13,7 @@ app.use(
 );
 app.use(express.json());
 app.use("/api", routes);
+app.use(log('dev'));
 
 app.get("/health", (_req, res) => {
     res.status(200).json({ ok: true });
