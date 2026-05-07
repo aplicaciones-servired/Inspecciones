@@ -8,11 +8,11 @@ const port = Number(process.env.PORT ?? 3000);
 
 app.use(
     cors({
-        origin: ["http://localhost:5173", "http://localhost:5174"],
+        origin: ["http://localhost:5173", "https://inspecciones.serviredgane.cloud"],
     })
 );
 app.use(express.json());
-app.use("/api", routes);
+app.use("/", routes);
 app.use(log('dev'));
 
 app.get("/health", (_req, res) => {
