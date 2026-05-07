@@ -633,4 +633,4 @@ export const inspectionDialogConfig: Record<InspectionKey, DialogConfig> = {
   }
 };
 
-export const API_BASE = import.meta.env.VITE_API_BASE_URL ?? "/api_data/api";
+export const API_BASE = import.meta.env.VITE_API_BASE_URL;

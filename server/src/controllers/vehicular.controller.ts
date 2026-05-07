@@ -7,7 +7,7 @@ export const getVehicular = async (req: Request, res: Response) => {
     const data = req.params;
     console.log("[vehicular] data extraída", data);
 
-    const zona = data.zonas;
+    const zona = String(data.zonas);
     console.log("[vehicular] data zona", zona);
     
     const fecha = String(req.query.fecha ?? "");
