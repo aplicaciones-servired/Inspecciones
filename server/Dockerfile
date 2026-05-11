@@ -6,8 +6,8 @@ COPY . .
 
 RUN npm install -g pnpm@latest
 
-RUN pnpm install --config.confirmModulesPurge=false
+RUN pnpm install && pnpm run build
 
 EXPOSE 3000
 
-CMD ["npm", "tsx", "--env-file=.env", "./src/index.ts"]
+CMD ["npm", "start"]
