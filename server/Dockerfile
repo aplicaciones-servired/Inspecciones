@@ -10,4 +10,4 @@ RUN pnpm install --config.confirmModulesPurge=false
 
 EXPOSE 3000
 
-CMD ["pnpm", "tsx", "--env-file=.env", "./src/index.ts"]
+CMD ["npm", "tsx", "--env-file=.env", "./src/index.ts"]
