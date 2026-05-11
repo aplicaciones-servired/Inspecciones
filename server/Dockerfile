@@ -2,14 +2,11 @@ FROM node:lts-slim
 
 WORKDIR /app
 
-# Copiar solo dependencias primero (mejor cache)
-COPY package.json pnpm-lock.yaml ./
+COPY . .
 
 RUN npm install -g pnpm@latest
-RUN pnpm install --config.confirmModulesPurge=false
 
-# Luego copiar el resto
-COPY . .
+RUN pnpm install --config.confirmModulesPurge=false
 
 EXPOSE 3000
 
