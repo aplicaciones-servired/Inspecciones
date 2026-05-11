@@ -2,12 +2,14 @@ FROM node:lts-slim
 
 WORKDIR /app
 
-COPY . .
-
 RUN npm install -g pnpm@latest
 
-RUN pnpm install --config.confirmModulesPurge=false
+COPY package.json pnpm-lock.yaml ./
+
+RUN pnpm install --frozen-lockfile --config.confirmModulesPurge=false
+
+COPY . .
 
 EXPOSE 3000
 
-CMD ["pnpm", "start", "--env-file=.env", "./src/index.ts"]
+CMD ["pnpm", "start"]
