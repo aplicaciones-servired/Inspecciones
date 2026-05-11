@@ -2,16 +2,24 @@ FROM node:lts-slim
 
 WORKDIR /app
 
-# Instalar pnpm globalmente
+# Evitar prompts interactivos
+ENV CI=true
+ENV PNPM_HOME="/pnpm"
+ENV PATH="$PNPM_HOME:$PATH"
+
+# Instalar pnpm
 RUN npm install -g pnpm@latest
 
-# Copiar archivos de configuración
+# Copiar archivos
 COPY package.json pnpm-lock.yaml ./
 
-# Instalar TODAS las dependencias (incluyendo devDependencies)
-RUN pnpm install --config.confirmModulesPurge=false
+# Instalar con flags específicos para CI
+RUN pnpm install \
+    --frozen-lockfile \
+    --ignore-scripts \
+    --config.confirmModulesPurge=false
 
-# Copiar el resto del código
+# Copiar código
 COPY . .
 
 EXPOSE 3000
