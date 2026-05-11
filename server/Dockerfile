@@ -8,6 +8,8 @@ RUN npm install -g pnpm@latest
 
 RUN pnpm install
 
+WORKDIR /app/server
+
 EXPOSE 3000
 
-CMD ["pnpm", "tsx", "./src/index.ts"]
+CMD ["pnpm", "start"]
