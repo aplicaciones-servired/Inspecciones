@@ -2,13 +2,12 @@ FROM node:lts-slim
 
 WORKDIR /app
 
+COPY . .
+
 RUN npm install -g pnpm@latest
 
-COPY package.json pnpm-lock.yaml ./
-RUN pnpm install 
-
-COPY . .
+RUN pnpm install
 
 EXPOSE 3000
 
-CMD ["pnpm", "start"]
+CMD ["pnpm", "tsx", "--env-file=.env", "./src/index.ts"]
