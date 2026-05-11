@@ -6,8 +6,6 @@ COPY . .
 
 RUN npm install -g pnpm@latest
 
-RUN pnpm install && pnpm run build
-
-EXPOSE 3000
+    RUN pnpm install --allow-scripts && pnpm run build
 
 CMD ["npm", "start"]
