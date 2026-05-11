@@ -2,14 +2,14 @@ FROM node:lts-slim
 
 WORKDIR /app
 
-COPY . .
+COPY package.json pnpm-lock.yaml ./
 
 RUN npm install -g pnpm@latest
 
-RUN pnpm install
+RUN pnpm install --frozen-lockfile
 
-WORKDIR /app/server
+COPY . .
 
 EXPOSE 3000
 
-CMD ["pnpm", "start"]
+CMD ["node", "--import", "tsx", "./src/index.ts"]
