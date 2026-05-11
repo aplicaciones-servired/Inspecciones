@@ -2,10 +2,14 @@ FROM node:lts-slim
 
 WORKDIR /app
 
-COPY . .
-
 RUN npm install -g pnpm@latest
 
-RUN pnpm install --allow-scripts && pnpm run build
+COPY package.json pnpm-lock.yaml ./
 
-CMD ["npm", "start"]
+RUN pnpm install --frozen-lockfile
+
+COPY . .
+
+RUN pnpm run build
+
+CMD ["pnpm", "start"]
