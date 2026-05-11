@@ -10,4 +10,4 @@ RUN pnpm install
 
 EXPOSE 3000
 
-CMD ["pnpm", "tsx", "--env-file=.env", "./src/index.ts"]
+CMD ["pnpm", "tsx", "./src/index.ts"]
