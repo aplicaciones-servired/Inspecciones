@@ -3,12 +3,12 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
-  "scripts": {
-    "build": "tsc",
-    "dev": "tsx watch --env-file=.env ./src/index.ts",
-    "test": "tsx --test src/**/*.test.ts",
-    "start": "tsx --env-file=.env ./src/index.ts"
-  },
+    "scripts": {
+      "build": "tsc",
+      "dev": "tsx watch --env-file=.env ./src/index.ts",
+      "test": "tsx --test src/**/*.test.ts",
+      "start": "ts-node --env-file=.env ./src/index.ts"
+    },
   "keywords": [],
   "author": "",
   "license": "ISC",

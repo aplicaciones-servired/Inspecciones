@@ -38,6 +38,9 @@ importers:
       tsconfig-paths:
         specifier: ^4.2.0
         version: 4.2.0
+      tsx:
+        specifier: ^4.21.0
+        version: 4.21.0
       typescript:
         specifier: ^6.0.3
         version: 6.0.3
@@ -45,9 +48,6 @@ importers:
       '@types/morgan':
         specifier: ^1.9.10
         version: 1.9.10
-      tsx:
-        specifier: ^4.21.0
-        version: 4.21.0
 
 packages:
 
