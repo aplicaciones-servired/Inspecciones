@@ -39,7 +39,7 @@ export class Extintores extends Model<
 let initializedFor: Sequelize | null = null;
 
 export function initExtintores(zona: string): typeof Extintores {
-    const sequelize = zona === "Multired" ? dbInspecciones : dbInspeccionesYum;
+    const sequelize = zona === "Multired" ? dbInspeccionesYum : dbInspecciones;
 
     if (initializedFor !== sequelize) {
         Extintores.init(

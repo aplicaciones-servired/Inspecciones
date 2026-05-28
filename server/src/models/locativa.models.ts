@@ -58,7 +58,7 @@ export class Locativa extends Model<
 let initializedFor: Sequelize | null = null;
 
 export function initLocativa(zona: string): typeof Locativa {
-    const sequelize = zona === "Multired" ? dbInspecciones : dbInspeccionesYum;
+    const sequelize = zona === "Multired" ? dbInspeccionesYum : dbInspecciones;
 
     if (initializedFor !== sequelize) {
         Locativa.init(

@@ -33,7 +33,7 @@ export class Bodega extends Model<
 let initializedFor: Sequelize | null = null;
 
 export function initBodega(zona: string): typeof Bodega {
-    const sequelize = zona === "Multired" ? dbInspecciones : dbInspeccionesYum;
+    const sequelize = zona === "Multired" ? dbInspeccionesYum : dbInspecciones;
 
     if (initializedFor !== sequelize) {
         Bodega.init(

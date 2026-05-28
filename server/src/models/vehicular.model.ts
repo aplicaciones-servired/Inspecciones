@@ -85,8 +85,8 @@ class VehicularBase extends Model<
 
 export function empresaVehicular(zona: string) {
   const empresa = zona === "Multired"
-    ? "chequeo_vehicular_multred_new"
-    : "chequeo_vehicular_servired_new";
+    ? "chequeo_vehicular_servired_new"
+    : "chequeo_vehicular_multred_new";
 
   VehicularBase.init(
     {

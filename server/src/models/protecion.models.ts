@@ -53,7 +53,7 @@ export class Protecion extends Model<
 let initializedFor: Sequelize | null = null;
 
 export function initProtecion(zona: string): typeof Protecion {
-    const sequelize = zona === "Multired" ? dbInspecciones : dbInspeccionesYum;
+    const sequelize = zona === "Multired" ? dbInspeccionesYum : dbInspecciones;
 
     if (initializedFor !== sequelize) {
         Protecion.init(

@@ -64,7 +64,7 @@ export class Herramientas extends Model<
 let initializedFor: Sequelize | null = null;
 
 export function initHerramientas(zona: string): typeof Herramientas {
-    const sequelize = zona === "Multired" ? dbInspecciones : dbInspeccionesYum;
+    const sequelize = zona === "Multired" ? dbInspeccionesYum : dbInspecciones;
 
     if (initializedFor !== sequelize) {
         Herramientas.init(

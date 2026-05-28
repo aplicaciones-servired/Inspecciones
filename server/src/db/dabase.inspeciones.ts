@@ -27,29 +27,47 @@ const database = requireEnv("ENV_INSPECIONES_DATABASE");
 const databaseYum = requireEnv("ENV_INSPECIONES_DATABASEYUM");
 const databaseAdmin = requireEnvOneOf(["ENV_INSPECIONES_DATABASEADMIN", "ENV_INSPECIONES_DATABASELOGUIN"]);
 const loguin = requireEnvOneOf(["ENV_INSPECIONES_LOGUIN"]);
+const port = Number(process.env.ENV_INSPECIONES_PORT ?? 3306);
+const connectTimeout = Number(process.env.ENV_INSPECIONES_CONNECT_TIMEOUT ?? 10000);
 
 
 export const dbInspecciones = new Sequelize(database, username, password, {
   host,
+  port,
   dialect: "mysql",
   logging: false,
+  dialectOptions: {
+    connectTimeout,
+  },
 });
 
 export const dbInspeccionesYum = new Sequelize(databaseYum, username, password, {
   host,
+  port,
   dialect: "mysql",
   logging: false,
+  dialectOptions: {
+    connectTimeout,
+  },
 });
 
 export const dbInspeccionesAdmin = new Sequelize(databaseAdmin, username, password, {
   host,
+  port,
   dialect: "mysql",
   logging: false,
+  dialectOptions: {
+    connectTimeout,
+  },
 });
 
 export const dbloguin = new Sequelize(loguin, username, password, {
   host,
+  port,
   dialect: "mysql",
   logging: false,
+  dialectOptions: {
+    connectTimeout,
+  },
 });
 // ...existing code...

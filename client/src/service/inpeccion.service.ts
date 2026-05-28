@@ -6,7 +6,7 @@ export interface RowData {
   [key: string]: string | number | boolean;
 }
 
-export type InspectionZone = "Multired" | "Yum";
+export type InspectionZone = "Multired" | "Servired";
 
 export const buildInspectionApiUrl = (inspection: string, zone: InspectionZone) => {
   if (inspection === "motocicleta" || inspection === "seguimiento_login") {

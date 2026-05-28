@@ -86,7 +86,7 @@ export class Botiquin extends Model<
 let initializedFor: Sequelize | null = null;
 
 export function initBotiquin(zona: string): typeof Botiquin {
-    const sequelize = zona === "Multired" ? dbInspecciones : dbInspeccionesYum;
+    const sequelize = zona === "Multired" ? dbInspeccionesYum : dbInspecciones;
 
     if (initializedFor !== sequelize) {
         Botiquin.init(
