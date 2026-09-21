@@ -39,7 +39,7 @@ export function InspectionFilters({
   const visibleInspections = inspections.filter(
     (inspection) =>
       inspection.value !== 'seguimiento_login' ||
-      currentUserLogin === ALLOWED_SEGUIMIENTO_LOGUIN
+      (currentUserLogin ?? '').trim().toUpperCase() === ALLOWED_SEGUIMIENTO_LOGUIN.toUpperCase()
   )
 
   return (
