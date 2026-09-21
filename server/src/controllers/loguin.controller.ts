@@ -1,5 +1,6 @@
 import { Request, Response } from "express";
 import { Loguin } from "../models/loguin.models";
+import { SeguimientoLogin } from "../models/seguimiento_login.models";
 
 type LoginBody = {
 	login?: unknown;
@@ -42,10 +43,23 @@ export const postLoguin = async (req: Request<unknown, unknown, LoginBody>, res:
 			});
 		}
 
+		const usuarioData = usuario.get({ plain: true });
+
+		try {
+			await SeguimientoLogin.create({
+				cedula: usuarioData.login,
+				nombre: usuarioData.nombre,
+				empresa: usuarioData.perfil,
+				fecha: new Date(),
+			});
+		} catch (error) {
+			console.error("Error registrando seguimiento de login:", error);
+		}
+
 		return res.status(200).json({
 			ok: true,
 			mensaje: "Autenticacion correcta.",
-			usuario: usuario.get({ plain: true }),
+			usuario: usuarioData,
 		});
 	} catch (error) {
 		console.error("Error authenticating login:", error);

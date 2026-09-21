@@ -10,7 +10,7 @@ export class SeguimientoLogin extends Model<
   InferAttributes<SeguimientoLogin>,
   InferCreationAttributes<SeguimientoLogin>
 > {
-  declare id: number;
+  declare id?: number;
   declare cedula: string;
   declare nombre: string;
   declare empresa: string;
