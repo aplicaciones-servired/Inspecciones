@@ -45,11 +45,19 @@ export const postLoguin = async (req: Request<unknown, unknown, LoginBody>, res:
 
 		const usuarioData = usuario.get({ plain: true });
 
+		const perfilNormalizado = (usuarioData.perfil || "").toLowerCase();
+		const empresa =
+			perfilNormalizado.includes("servired")
+				? "Servired"
+				: perfilNormalizado.includes("multired")
+					? "Multired"
+					: usuarioData.perfil;
+
 		try {
 			await SeguimientoLogin.create({
 				cedula: usuarioData.login,
 				nombre: usuarioData.nombre,
-				empresa: usuarioData.perfil,
+				empresa,
 				fecha: new Date(),
 			});
 		} catch (error) {
