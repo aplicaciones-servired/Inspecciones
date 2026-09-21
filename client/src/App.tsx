@@ -9,7 +9,7 @@ import type { LoginUser } from './service/login.service'
 
 const sessionKey = 'inspecciones.login.session'
 
-function InspectionsWorkspace({ onLogout }: { onLogout: () => void }) {
+function InspectionsWorkspace({ onLogout, currentUserLogin }: { onLogout: () => void, currentUserLogin?: string }) {
   const vm = useInspectionsPage()
   const toast = vm.toast
   const setToast = vm.setToast
@@ -68,6 +68,7 @@ function InspectionsWorkspace({ onLogout }: { onLogout: () => void }) {
           onExportByRange={vm.exportByDateRange}
           onClearFilters={vm.clearDateFilters}
           onClearExportDates={vm.clearExportDates}
+          currentUserLogin={currentUserLogin}
         />
 
         <InspectionTable
@@ -127,7 +128,7 @@ function App() {
     return <LoginForm onSuccess={handleLoginSuccess} />
   }
 
-  return <InspectionsWorkspace onLogout={handleLogout} />
+  return <InspectionsWorkspace onLogout={handleLogout} currentUserLogin={session?.login} />
 }
 
 export default App

@@ -1,6 +1,8 @@
 import { inspections } from '../utils/const'
 import type { InspectionZone } from '../service/inpeccion.service'
 
+const ALLOWED_SEGUIMIENTO_LOGUIN = 'CP38670194'
+
 type Props = {
   selectedInspection: string
   onInspectionChange: (value: string) => void
@@ -15,6 +17,7 @@ type Props = {
   onExportByRange: () => void
   onClearFilters: () => void
   onClearExportDates: () => void
+  currentUserLogin?: string
 }
 
 export function InspectionFilters({
@@ -31,7 +34,14 @@ export function InspectionFilters({
   onExportByRange,
   onClearFilters,
   onClearExportDates,
+  currentUserLogin,
 }: Props) {
+  const visibleInspections = inspections.filter(
+    (inspection) =>
+      inspection.value !== 'seguimiento_login' ||
+      currentUserLogin === ALLOWED_SEGUIMIENTO_LOGUIN
+  )
+
   return (
     <section className="mb-8 rounded-3xl border border-red-200/60 bg-white/85 p-6 shadow-[0_12px_40px_-18px_rgba(15,23,42,0.25)] backdrop-blur md:p-8">
       <p className="mb-2 text-xs font-semibold uppercase tracking-[0.18em] text-red-500">Panel</p>
@@ -47,7 +57,7 @@ export function InspectionFilters({
             onChange={(event) => onInspectionChange(event.target.value)}
             className="rounded-xl border border-red-200 bg-linear-to-r from-red-50 to-sky-50 px-4 py-3 text-sm font-medium text-slate-700 outline-none transition focus:border-red-300 focus:ring-2 focus:ring-red-200"
           >
-            {inspections.map((inspection) => (
+            {visibleInspections.map((inspection) => (
               <option key={inspection.value} value={inspection.value}>
                 {inspection.name}
               </option>

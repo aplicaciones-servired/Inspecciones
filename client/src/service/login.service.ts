@@ -34,7 +34,9 @@ export const authenticateLogin = async (credentials: LoginCredentials): Promise<
     return response.data.usuario
   } catch (error: unknown) {
     if (axios.isAxiosError(error)) {
-      const serverMsg = (error.response && (error.response.data as any)?.mensaje) || error.message
+      const serverMsg =
+        (error.response?.data as Partial<LoginResponse> | undefined)?.mensaje ||
+        error.message
       throw new Error(typeof serverMsg === 'string' ? serverMsg : 'No fue posible iniciar sesion.')
     }
 

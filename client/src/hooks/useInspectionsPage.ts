@@ -6,6 +6,54 @@ import type { ToastState } from '../components/Toast'
 
 type ToastType = 'success' | 'error' | 'info'
 
+const parseDateToTime = (value: string): number | null => {
+  if (!value) return null
+
+  const isoMatch = value.match(/^(\d{4})-(\d{2})-(\d{2})/)
+  if (isoMatch) {
+    const [, year, month, day] = isoMatch
+    return new Date(Number(year), Number(month) - 1, Number(day)).getTime()
+  }
+
+  const latinMatch = value.match(/^(\d{2})\/(\d{2})\/(\d{4})/)
+  if (latinMatch) {
+    const [, day, month, year] = latinMatch
+    return new Date(Number(year), Number(month) - 1, Number(day)).getTime()
+  }
+
+  const fallback = new Date(value)
+  if (Number.isNaN(fallback.getTime())) return null
+  return new Date(fallback.getFullYear(), fallback.getMonth(), fallback.getDate()).getTime()
+}
+
+const getRowDate = (row: RowData): string | null => {
+  const key = Object.keys(row).find((k) => k.toLowerCase().includes('fecha'))
+  if (!key) return null
+  const raw = row[key]
+  return raw == null ? null : String(raw)
+}
+
+const sortRowsDescending = (rows: RowData[]): RowData[] => {
+  return [...rows].sort((a, b) => {
+    const aDate = getRowDate(a)
+    const bDate = getRowDate(b)
+    const aTime = aDate ? parseDateToTime(aDate) : null
+    const bTime = bDate ? parseDateToTime(bDate) : null
+
+    if (aTime != null && bTime != null && aTime !== bTime) {
+      return bTime - aTime
+    }
+
+    const aId = Number(a.id)
+    const bId = Number(b.id)
+    if (Number.isFinite(aId) && Number.isFinite(bId) && aId !== bId) {
+      return bId - aId
+    }
+
+    return 0
+  })
+}
+
 export function useInspectionsPage() {
   const [selectedInspection, setSelectedInspection] = useState('bodega')
   const [selectedZone, setSelectedZone] = useState<InspectionZone>('Multired')
@@ -27,54 +75,6 @@ export function useInspectionsPage() {
       type,
       title,
       message,
-    })
-  }
-
-  const parseDateToTime = (value: string) => {
-    if (!value) return null
-
-    const isoMatch = value.match(/^(\d{4})-(\d{2})-(\d{2})/)
-    if (isoMatch) {
-      const [, year, month, day] = isoMatch
-      return new Date(Number(year), Number(month) - 1, Number(day)).getTime()
-    }
-
-    const latinMatch = value.match(/^(\d{2})\/(\d{2})\/(\d{4})/)
-    if (latinMatch) {
-      const [, day, month, year] = latinMatch
-      return new Date(Number(year), Number(month) - 1, Number(day)).getTime()
-    }
-
-    const fallback = new Date(value)
-    if (Number.isNaN(fallback.getTime())) return null
-    return new Date(fallback.getFullYear(), fallback.getMonth(), fallback.getDate()).getTime()
-  }
-
-  const getRowDate = (row: RowData) => {
-    const key = Object.keys(row).find((k) => k.toLowerCase().includes('fecha'))
-    if (!key) return null
-    const raw = row[key]
-    return raw == null ? null : String(raw)
-  }
-
-  const sortRowsDescending = (rows: RowData[]) => {
-    return [...rows].sort((a, b) => {
-      const aDate = getRowDate(a)
-      const bDate = getRowDate(b)
-      const aTime = aDate ? parseDateToTime(aDate) : null
-      const bTime = bDate ? parseDateToTime(bDate) : null
-
-      if (aTime != null && bTime != null && aTime !== bTime) {
-        return bTime - aTime
-      }
-
-      const aId = Number(a.id)
-      const bId = Number(b.id)
-      if (Number.isFinite(aId) && Number.isFinite(bId) && aId !== bId) {
-        return bId - aId
-      }
-
-      return 0
     })
   }
 
