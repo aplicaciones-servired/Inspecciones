@@ -49,12 +49,14 @@ pipeline {
     stage('delete images if exist') {
       steps{
         script {
-          def images = 'api-inpecciones-v1.0'
-          if (sh(script: "docker images -q ${images}", returnStdout: true).trim()) {
-            sh "docker rmi ${images}"
-          } else {
-            echo "Image ${images} does not exist."
-            echo "continuing..."
+          def images = ['api-inpecciones-v1.0', 'web-inpecciones-v1.0']
+          images.each { image ->
+            if (sh(script: "docker images -q ${image}", returnStdout: true).trim()) {
+              sh "docker rmi ${image}"
+            } else {
+              echo "Image ${image} does not exist."
+              echo "continuing..."
+            }
           }
         }
       }
@@ -62,7 +64,7 @@ pipeline {
 
     stage('run docker compose'){
         steps {
-          script { sh 'docker compose up -d' }
+          script { sh 'docker compose up -d --build' }
           }
       }
     }
